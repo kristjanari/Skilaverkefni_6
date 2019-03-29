@@ -1,20 +1,21 @@
 from ui.RegistrationUI import *
 from os import system, name
+from Service.MemberService import MemberService
 
 
 class MemberUI:
 
     def __init__(self):
-        pass
+        self.member_service = MemberService()
 
     def member_menu(self):
         action = ''
         while action != "b" and action != "q":
             system("clear")
             print("Please Select one, If you want to quit press 'q' to go back press 'b'")
-            action = input("1. Register new member\n2. view all members\n3. Look up a member").lower()
+            action = input("1. Register new member\n2. view all members\n3. Look up a member\n").lower()
             if action == "1":
-                action = self.register_new_member
+                action = self.register_new_member()
             elif action == "2":
                 action = self.view_all_members()
             elif action == "3":
@@ -22,15 +23,17 @@ class MemberUI:
         return action
 
     def look_up_a_member(self):
-        action = ''
-        while action != "b" and action != "q":
             system("clear")
             print("Please Select one, If you want to quit press 'q' to go back press 'b'")
             print('Look up a member by:')
             action = input("1. Name\n2. Phone\n3. Email\n4. year of birth\n").lower()
             if action == "1":
-                #send to a function that takes in name and returns member ID
-                pass
+                name = input("Name: ")
+                member_list = self.member_service.look_up_a_member_by_name(name)
+                print("Members with that name:")
+                for member in member_list:
+                    print("ID: {}\nMember:\n{}".format(member[0], member[1]))
+                selcted_id = input("Select a member's ID: ")
             elif action == "2":
                 #send to a function that takes in phone and returns member ID
                 pass
@@ -40,7 +43,7 @@ class MemberUI:
             elif action == "4":
                 #send to a function that takes in year and returns member ID
                 pass
-            if action != "b" and action != "q":
+            while action != "b" and action != "q":
                 question = input("Do you want to:\n1. Sign a member to a sport\n2. Remove member from a sport\n3. Delete member\n4. Home\n")
                 if question == "1":
                     pass
@@ -50,7 +53,7 @@ class MemberUI:
                     pass
                 elif action == "4":
                     action == "b"
-        return action
+            return action
 
     def view_all_members(self):
         action = ''
@@ -67,11 +70,11 @@ class MemberUI:
                 pass
         return action
 
-    def register_new_member():
+    def register_new_member(self):
         name = input("Name: ")
         phone = input("Phone: ")
         email = input("Email: ")
         year = input("Year of birth: ")
-        #SENDA UPPL YFIR i Servise
+        self.member_service.add_member(name, phone, email, year)
         print("Member registerd")
         return 'OK'

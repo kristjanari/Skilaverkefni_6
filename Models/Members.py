@@ -3,7 +3,7 @@ from sortedcontainers import SortedDict
 
 class Members:
 
-    def __init__(self, name):
+    def __init__(self):
         self.members_map = {} 
         self.name_map = SortedDict()
         self.phone_map = {}
@@ -11,7 +11,8 @@ class Members:
         self.year_map = SortedDict()
         self.unique_id = 1
 
-    def add_member(self, member):
+    def add_member(self, name, phone, email, year):
+        member = Member(name, phone, email, year)
         self.members_map[self.unique_id] = member
         self.name_map[member.name] = self.name_map.get(member.name,[]) + [self.unique_id]
         self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [self.unique_id]
@@ -36,3 +37,11 @@ class Members:
             else:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
+        
+    def find_member_by_name(self, name):
+        ids = self.name_map.get(name, False)
+        if ids:
+            listi = []
+            for id in ids:
+                listi.append([id, self.members_map[id]])
+            return listi
