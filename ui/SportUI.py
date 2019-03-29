@@ -1,3 +1,6 @@
+from ui.RegistrationUI import *
+from os import system, name
+
 class SportUI:
 
     def __init__(self):
@@ -5,12 +8,32 @@ class SportUI:
 
     def sport_menu(self):
         action = ''
-        while action != "q":
-            print("Please Select one, If you want to quit press 'q'")
-            action = input("1. Sport\n2. Member\n").lower()
+        while action != "b" and action != "q":
+            system("clear")
+            print("Please Select one, If you want to quit press 'q' and to go back press 'b'")
+            action = input("1. Register sport\n2. View all sports\n").lower()
             if action == "1":
-                self.__sportUI = SportUI()
-                self.__sportUI.sport_menu()
+                action = self.register_sport()
             elif action == "2":
-                self.__memberUI = MemberUI()
-                self.__memberUI.member_menu()
+                action = self.view_all_sports()
+        return action
+
+    def view_all_sports(self):
+        #call a function in Service that gets list of all sports
+        
+        #print the list of all sport with the it's ID
+        action = ''
+        while action != "b" and action != "q":
+            print("Please Select one, If you want to quit press 'q' and to go back press 'b'")
+            action = input("1. Get a detailed information about sport\n2. Delete a sport\n").lower()
+            if action == "1":
+                action = "b"
+            elif action == "2":
+                action = "b"
+        return action
+
+    def register_sport(self):
+        name = input("Name: ")
+        #SENDA UPPL YFIR i Servise
+        print("Sport registerd")
+        return 'OK'
