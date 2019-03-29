@@ -1,6 +1,6 @@
-from ui import *
+from ui.RegistartionUI import *
 
 def main():
-    ui.main()
+    RegistartionUI.main_menu()
 
 main()
