@@ -17,4 +17,7 @@ class SportService:
         self.sport_repo.write_sports(self.sport_map)
 
     def get_all_sports(self):
-        pass
+        sport_list = []
+        for sport in self.sport_map:
+            sport_list.append(sport)
+        return sport_list
