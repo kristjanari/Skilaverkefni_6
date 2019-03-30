@@ -1,10 +1,10 @@
-from ui.RegistrationUI import *
 from os import system, name
 
 class SportUI:
 
-    def __init__(self):
-        pass
+    def __init__(self, MemberService, SportService):
+        self.member_service = MemberService
+        self.sport_service = SportService
 
     def sport_menu(self):
         action = ''
