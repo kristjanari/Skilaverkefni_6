@@ -75,8 +75,8 @@ class MemberUI:
             elif action == "2":
                 pass
             elif action == "3":
-                self.member_service.remove_member(id)
-                self.sport_service.remove_member_from_sports(self.member_service.members_map[id].sports)
+                self.sport_service.remove_member_from_sports(int(id), self.member_service.members_map[int(id)].sports)
+                self.member_service.remove_member(int(id))
         if action == "q":
             return action
         return ""

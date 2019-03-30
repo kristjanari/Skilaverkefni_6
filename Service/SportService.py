@@ -10,8 +10,8 @@ class SportService:
     def add_sport(self, name):
         self.sport_map[name] = Sport(name)
 
-    def remove_sport(self, name):
-        del self.sport_map[name]
+    def remove_sport(self, sport):
+        del self.sport_map[sport]
 
     def remove_member_from_sports(self, id, sports):
         for sport in sports:

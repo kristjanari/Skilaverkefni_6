@@ -35,7 +35,7 @@ class SportUI:
     def view_all_sports(self):
         sport_list = self.sport_service.get_all_sports()
         self.print_sport(sport_list, "All sports: ")
-        sport = input("Select a sport").lower
+        sport = input("Select a sport").lower()
         action = ''
         while action != "b" and action != "q":
             self.print_sentence()
@@ -43,8 +43,11 @@ class SportUI:
             if action == "1":
                 action = "b"
             elif action == "2":
+                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
                 self.sport_service.remove_sport(sport)
-                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_members())
+                print("Member deleted")
+                sleep(2)
+                action = "b"
         return action
 
     def register_sport(self):
@@ -52,5 +55,4 @@ class SportUI:
         self.sport_service.add_sport(name)
         print("Sport registerd")
         sleep(2)
-        sleep()
         return 'OK'
