@@ -42,6 +42,7 @@ class MemberService:
             else:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
+        
 
     def find_member(self, looking_for, type):
         if type == "name":
