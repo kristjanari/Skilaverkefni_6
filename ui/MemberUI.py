@@ -1,5 +1,6 @@
 from os import system, name
 from time import sleep
+from ui.SportUI import SportUI
 
 
 
@@ -8,6 +9,7 @@ class MemberUI:
     def __init__(self, MemberService, SportService):
         self.member_service = MemberService
         self.sport_service = SportService
+        self.sportUi = SportUI(self.member_service, self.sport_service)
 
     def save(self):
         self.member_service.save_members()
@@ -71,7 +73,7 @@ class MemberUI:
             self.print_sentence()
             action = input("Do you want to:\n1. Sign a member to a sport\n2. Remove member from a sport\n3. Delete member\n").lower()
             if action == "1":
-                pass
+                self.sportUi.view_all_sports(id)
             elif action == "2":
                 pass
             elif action == "3":

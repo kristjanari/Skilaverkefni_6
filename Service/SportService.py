@@ -26,3 +26,15 @@ class SportService:
         for sport in self.sport_map.values():
             sport_list.append(sport)
         return sport_list
+
+    def get_all_groups(self, sport):
+        group_list = []
+        sport_instance = self.sport_map[sport]
+        groups_dict = sport_instance.groups
+        for group, value in groups_dict.items():
+            group_list.append([group, value.members])
+        return group_list
+
+
+    def sign_member_to_group(self, member_id, sport, group):
+        pass

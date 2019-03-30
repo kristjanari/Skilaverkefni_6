@@ -8,7 +8,7 @@ class Sport:
 
     def add_group(self, name, age_from, age_to):
         sport_group = SportGroup(self.name, name, age_from, age_to)
-        self.groups[name] = sport_group
+        self.groups[name] = self.groups.get(name, []) + [sport_group]
 
     def remove_member(self, name):
         del self.groups[name]
@@ -22,6 +22,7 @@ class Sport:
             for member in group.members:
                 members.add(member)
         return members
+
 
     def __str__(self):
         return_str = str(self.name) + ":\n"

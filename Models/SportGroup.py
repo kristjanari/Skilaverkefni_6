@@ -7,10 +7,10 @@ class SportGroup:
         self.name = name
         self.age_from = age_from
         self.age_to = age_to
-        self.members = BinarySearchTree()
+        self.members = []
 
     def add_member(self, member_id):
-        self.members.add(member_id)
+        self.members.append(member_id)
 
     def remove_member(self, member_id):
         self.members.remove(member_id)
