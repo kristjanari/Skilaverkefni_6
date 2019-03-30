@@ -77,6 +77,9 @@ class MemberUI:
             elif action == "3":
                 self.sport_service.remove_member_from_sports(int(id), self.member_service.members_map[int(id)].sports)
                 self.member_service.remove_member(int(id))
+                print("Member deleted")
+                sleep(2)
+                action = "b"
         if action == "q":
             return action
         return ""
