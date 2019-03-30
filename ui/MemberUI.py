@@ -26,7 +26,7 @@ class MemberUI:
             system("clear")
             print("Please Select one, If you want to quit press 'q' to go back press 'b'")
             print('Look up a member by:')
-            action = input("1. Name\n2. Phone\n3. Email\n4. year of birth\n").lower()
+            action = input("1. Name\n2. Phone\n3. Email\n4. Year of birth\n").lower()
             if action == "1":
                 name = input("Name: ")
                 member_list = self.member_service.look_up_a_member_by_name(name)
