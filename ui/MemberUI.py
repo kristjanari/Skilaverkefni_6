@@ -56,11 +56,11 @@ class MemberUI:
             if member_list:
                 self.print_members(member_list, text)
                 selcted_id = input("Select a member's ID: ")
-                return self.do_somthing_with_the_meber()
+                return self.allow_actions_with_member()
             action = input("Member not found, do you want to search again? (y/n)").lower()
         return "b"
 
-    def do_somthing_with_the_meber(self):
+    def allow_actions_with_member(self):
         action = ''
         while action != "b" and action != "q":
             self.print_sentence()
