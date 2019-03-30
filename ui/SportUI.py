@@ -1,4 +1,5 @@
 from os import system, name
+from time import sleep
 
 class SportUI:
 
@@ -12,8 +13,8 @@ class SportUI:
     def print_sport(self, sports, text):
         system("clear")
         print(text)
-        for index, sport in sport:
-                    print("Member {} :\n{}".format(index + 1, sport))
+        for sport in sports:
+            print(sport)
 
 
     def print_sentence(self):
@@ -33,7 +34,7 @@ class SportUI:
 
     def view_all_sports(self):
         sport_list = self.sport_service.get_all_sports()
-        self.print_sport(sport_list, "All sports")
+        self.print_sport(sport_list, "All sports: ")
         sport = input("Select a sport").lower
         action = ''
         while action != "b" and action != "q":
@@ -49,4 +50,6 @@ class SportUI:
         name = input("Name: ").lower()
         self.sport_service.add_sport(name)
         print("Sport registerd")
+        sleep(2)
+        sleep()
         return 'OK'
