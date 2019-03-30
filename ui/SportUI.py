@@ -42,7 +42,8 @@ class SportUI:
             if action == "1":
                 action = "b"
             elif action == "2":
-                action = "b"
+                self.sport_service.remove_sport(sport)
+                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_members())
         return action
 
     def register_sport(self):

@@ -16,6 +16,13 @@ class Sport:
     def add_member(self, member_id, group):
         group.add_member(member_id)
 
+    def get_all_members(self):
+        members = set()
+        for group in self.groups:
+            for member in group.members:
+                members.add(member)
+        return members
+
     def __str__(self):
         return_str = str(self.name) + ":\n"
         for group in self.groups:
