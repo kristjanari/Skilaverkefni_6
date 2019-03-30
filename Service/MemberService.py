@@ -90,5 +90,6 @@ class MemberService:
         self.member_repo.write_members(self.members_map)
 
     def remove_sport_from_members(self, sport, members):
-        pass
+        for member in members:
+            del member.sports[sport]
         

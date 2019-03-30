@@ -6,6 +6,9 @@ class SportUI:
         self.member_service = MemberService
         self.sport_service = SportService
 
+    def save(self)
+        self.sport_service.save_sports()
+
     def sport_menu(self):
         action = ''
         while action != "b" and action != "q":
@@ -19,9 +22,7 @@ class SportUI:
         return action
 
     def view_all_sports(self):
-        #call a function in Service that gets list of all sports
-        
-        #print the list of all sport with the it's ID
+        sport_list = self.sport_service.get_all_sports()
         action = ''
         while action != "b" and action != "q":
             print("Please Select one, If you want to quit press 'q' and to go back press 'b'")
@@ -34,6 +35,6 @@ class SportUI:
 
     def register_sport(self):
         name = input("Name: ")
-        #SENDA UPPL YFIR i Servise
+        self.sport_service.add_sport(name)
         print("Sport registerd")
         return 'OK'

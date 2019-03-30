@@ -18,4 +18,8 @@ class SportService:
             for group in sports[sport]:
                 group.remove_member(id)
 
-    
+    def save_sports(self):
+        self.sport_repo.write_sports(self.sport_map)
+
+    def get_all_sports(self):
+        pass
