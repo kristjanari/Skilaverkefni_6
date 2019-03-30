@@ -11,8 +11,7 @@ class MemberService:
         self.phone_map = {}
         self.email_map = {}
         self.year_map = SortedDict()
-        self.create_name_phone_email_year_map()
-        self.unique_id = 1
+        self.unique_id = self.create_name_phone_email_year_map_and_return_unique_id()
 
     def add_member(self, name, phone, email, year):
         member = Member(name, phone, email, year)
@@ -60,10 +59,14 @@ class MemberService:
             return listi
         return ids
 
-    def create_name_phone_email_year_map(self):
+    def create_name_phone_email_year_map_and_return_unique_id(self):
+        max_id = 0
         for key in self.members_map:
             member = self.members_map[key]
             self.name_map[member.name] = self.name_map.get(member.name,[]) + [key]
             self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [key]
             self.email_map[member.name] = self.email_map.get(member.email,[]) + [key]
             self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [key]
+            if key > max_id:
+                max_id = key
+        return max_id
