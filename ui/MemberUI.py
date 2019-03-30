@@ -1,4 +1,7 @@
 from os import system, name
+from time import sleep
+
+
 
 class MemberUI:
 
@@ -105,4 +108,5 @@ class MemberUI:
         year = input("Year of birth: ")
         self.member_service.add_member(name, phone, email, year)
         print("Member registerd")
+        sleep(2)
         return 'OK'

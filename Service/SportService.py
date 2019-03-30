@@ -23,6 +23,6 @@ class SportService:
 
     def get_all_sports(self):
         sport_list = []
-        for sport in self.sport_map:
+        for sport in self.sport_map.values():
             sport_list.append(sport)
         return sport_list
