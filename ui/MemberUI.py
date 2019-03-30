@@ -39,19 +39,19 @@ class MemberUI:
             action = input("1. Name\n2. Phone\n3. Email\n4. Year of birth\n").lower()
             if action == "1":
                 name = input("Name: ")
-                member_list = self.member_service.look_up_a_member(name, "name")
+                member_list = self.member_service.find_member(name, "name")
                 text = "Members named {}:".format(name)
             elif action == "2":
                 phone = input("Phone: ")
-                member_list = self.member_service.look_up_a_member(phone, "phone")
+                member_list = self.member_service.find_member(phone, "phone")
                 text = "Members with phone number {}:".format(phone)
             elif action == "3":
                 email = input("Email: ")
-                member_list = self.member_service.look_up_a_member(email, "email")
+                member_list = self.member_service.find_member(email, "email")
                 text = "Members with email {}:".format(email)
             elif action == "4":
                 year = input("Year: ")
-                member_list = self.member_service.look_up_a_member(year, "year")
+                member_list = self.member_service.find_member(year, "year")
                 text = "Members born {}:".format(year)
             if member_list:
                 self.print_members(member_list, text)
