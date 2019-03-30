@@ -57,7 +57,7 @@ class MemberUI:
                 text = "Members born {}:".format(year)
             if member_list:
                 self.print_members(member_list, text)
-                selcted_id = input("Select a member's ID: ")
+                selected_id = input("Select a member's ID: ")
                 return self.allow_actions_with_member(selected_id)
             action = input("Member not found, do you want to search again? (y/n)").lower()
         return "b"
