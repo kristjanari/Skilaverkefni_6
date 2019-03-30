@@ -91,6 +91,8 @@ class MemberUI:
                 self.print_members(member_list, "")
             elif action == "3":
                 pass
+            selcted_id = input("Select a member's ID: ")
+            return self.allow_actions_with_member(selected_id)
         if action == "q":
             return action
         return ""
