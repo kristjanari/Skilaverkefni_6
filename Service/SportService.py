@@ -13,4 +13,8 @@ class SportService:
     def remove_sport(self, name):
         del self.sport_map[name]
 
-    
+    def save_sports(self):
+        self.sport_repo.write_sports(self.sport_map)
+
+    def get_all_sports(self):
+        pass
