@@ -4,7 +4,7 @@ class MemberRepository:
 
     def read_members(self):
         try:
-            pickle_members = open("./Data/members.picle", "rb")
+            pickle_members = open("./Data/members.pickle", "rb")
             members_dict = pickle.load(pickle_members)
             pickle_members.close()
             return members_dict
@@ -12,6 +12,6 @@ class MemberRepository:
             return {}
 
     def write_members(self, members_dict):
-        pickle_file = open("./Data/members.picle", "wb")
+        pickle_file = open("./Data/members.pickle", "wb")
         pickle.dump(members_dict, pickle_file)
         pickle_file.close()
