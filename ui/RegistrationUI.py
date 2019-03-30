@@ -24,4 +24,5 @@ class RegistrationUI:
                 action = self.__memberUI.member_menu()
             elif action == "3":
                 self.__memberUI.save()
+                #self.__sportUI.save()
 
