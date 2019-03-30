@@ -74,7 +74,7 @@ class SportUI:
                 group = input("Select a group: ").lower()
                 self.print_sentence()
                 action = input("1. sign a member to that \n2. Delete a sport\n").lower()
-                self.sport_service.sign_member_to_group(member_id, sport, group)
+                self.sport_service.assign_member_to_group(member_id, sport, group)
             else:
                 ok = input("Press enter to continu")
                 return 'b'

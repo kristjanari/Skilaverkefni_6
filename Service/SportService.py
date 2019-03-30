@@ -36,5 +36,7 @@ class SportService:
         return group_list
 
 
-    def sign_member_to_group(self, member_id, sport, group):
-        pass
+    def assign_member_to_group(self, member_id, sport, group):
+        sport_instance = self.sport_map[sport]
+        groups_dict = sport_instance.groups
+        self.sport_map[sport].addmeber(member_id, groups_dict[group])

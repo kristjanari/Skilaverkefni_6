@@ -15,6 +15,7 @@ class Sport:
 
     def add_member(self, member_id, group):
         group.add_member(member_id)
+        
 
     def get_all_members(self):
         members = set()
