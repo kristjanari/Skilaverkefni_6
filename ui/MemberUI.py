@@ -1,12 +1,13 @@
-from ui.RegistrationUI import *
 from os import system, name
-from Service.MemberService import MemberService
-
 
 class MemberUI:
 
-    def __init__(self):
-        self.member_service = MemberService()
+    def __init__(self, MemberService, SportService):
+        self.member_service = MemberService
+        self.sport_service = SportService
+
+    def save(self):
+        self.member_service.save_members()
 
     def member_menu(self):
         action = ''
@@ -27,6 +28,7 @@ class MemberUI:
         for index, member in enumerate(members):
                     print("Member {} :\nID: {}\n{}".format(index + 1, member[0], member[1]))
 
+
     def print_sentence(self):
         system("clear")
         print("Please Select one, If you want to quit press 'q' to go back press 'b'")
@@ -39,28 +41,28 @@ class MemberUI:
             action = input("1. Name\n2. Phone\n3. Email\n4. Year of birth\n").lower()
             if action == "1":
                 name = input("Name: ")
-                member_list = self.member_service.look_up_a_member(name, "name")
+                member_list = self.member_service.find_member(name, "name")
                 text = "Members named {}:".format(name)
             elif action == "2":
                 phone = input("Phone: ")
-                member_list = self.member_service.look_up_a_member(phone, "phone")
+                member_list = self.member_service.find_member(phone, "phone")
                 text = "Members with phone number {}:".format(phone)
             elif action == "3":
                 email = input("Email: ")
-                member_list = self.member_service.look_up_a_member(email, "email")
+                member_list = self.member_service.find_member(email, "email")
                 text = "Members with email {}:".format(email)
             elif action == "4":
                 year = input("Year: ")
-                member_list = self.member_service.look_up_a_member(year, "year")
+                member_list = self.member_service.find_member(year, "year")
                 text = "Members born {}:".format(year)
             if member_list:
                 self.print_members(member_list, text)
                 selcted_id = input("Select a member's ID: ")
-                return self.do_somthing_with_the_meber()
+                return self.allow_actions_with_member(selected_id)
             action = input("Member not found, do you want to search again? (y/n)").lower()
         return "b"
 
-    def do_somthing_with_the_meber(self):
+    def allow_actions_with_member(self, id):
         action = ''
         while action != "b" and action != "q":
             self.print_sentence()
@@ -82,9 +84,11 @@ class MemberUI:
             print('Orderd by:')
             action = input("1. Name\n2. age\n3. sport\n").lower()
             if action == "1":
-                pass
+                member_list = self.member_service.get_member_orderd_by_name()
+                self.print_members(member_list, "")
             elif action == "2":
-                pass
+                member_list = self.member_service.get_member_orderd_by_year()
+                self.print_members(member_list, "")
             elif action == "3":
                 pass
         if action == "q":

@@ -71,3 +71,21 @@ class MemberService:
             if key > max_id:
                 max_id = key
         return max_id
+
+    def get_member_orderd_by_name(self):
+        ordered_member_list = []
+        for name in self.name_map:
+            for id in self.name_map[name]:
+                ordered_member_list.append([id, self.members_map[id]])
+        return ordered_member_list
+
+    def get_member_orderd_by_year(self):
+        ordered_member_list = []
+        for name in self.year_map:
+            for id in self.year_map[name]:
+                ordered_member_list.append([id, self.members_map[id]])
+        return ordered_member_list
+
+    def save_members(self):
+        self.member_repo.write_members(self.members_map)
+
