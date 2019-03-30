@@ -16,7 +16,7 @@ class Members:
         self.members_map[self.unique_id] = member
         self.name_map[member.name] = self.name_map.get(member.name,[]) + [self.unique_id]
         self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [self.unique_id]
-        self.email_map[member.email] = self.unique_id
+        self.email_map[member.email] = self.email_map.get(member.email,[]) + [self.unique_id]
         self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [self.unique_id]
         self.unique_id += 1
 
@@ -31,17 +31,31 @@ class Members:
                 self.name_map[member.phone].remove(id)
             else:
                 del self.phone_map[member.phone]
-            del self.email_map[member.phone]
+            if len(self.email_map[member.email]) > 1:
+                self.name_map[member.email].remove(id)
+            else:
+                del self.email_map[member.email]
             if len(self.year_map[member.birth_year]) > 1:
                 self.name_map[member.birth_year].remove(id)
             else:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
         
-    def find_member_by_name(self, name):
-        ids = self.name_map.get(name, False)
+
+    def find_member(self, looking_for, type):
+        if type == "name":
+            ids = self.name_map.get(looking_for, False)
+        elif type == "phone":
+            ids = self.phone_map.get(looking_for, False)
+        elif type == "email":
+            ids = self.email_map.get(looking_for, False)
+        elif type == "year":
+            ids == self.year_map.get(looking_for, False)
         if ids:
             listi = []
             for id in ids:
                 listi.append([id, self.members_map[id]])
             return listi
+        return ids
+
+    

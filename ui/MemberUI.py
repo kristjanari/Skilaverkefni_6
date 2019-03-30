@@ -23,37 +23,41 @@ class MemberUI:
         return action
 
     def look_up_a_member(self):
+        action = ""
+        while action != "n":
             system("clear")
             print("Please Select one, If you want to quit press 'q' to go back press 'b'")
             print('Look up a member by:')
             action = input("1. Name\n2. Phone\n3. Email\n4. Year of birth\n").lower()
             if action == "1":
                 name = input("Name: ")
-                member_list = self.member_service.look_up_a_member_by_name(name)
+                member_list = self.member_service.look_up_a_member(name, "name")
+            elif action == "2":
+                phone = input("Phone: ")
+                member_list = self.member_service.look_up_a_member(phone, "phone")
+            elif action == "3":
+                email = input("Email: ")
+                member_list = self.member_service.look_up_a_member(email, "email")
+            elif action == "4":
+                year = input("Year: ")
+                member_list = self.member_service.look_up_a_member(year, "year")
+            if member_list:
                 print("Members with that name:")
                 for member in member_list:
                     print("ID: {}\nMember:\n{}".format(member[0], member[1]))
                 selcted_id = input("Select a member's ID: ")
-            elif action == "2":
-                #send to a function that takes in phone and returns member ID
-                pass
-            elif action == "3":
-                #send to a function that takes in email and returns member ID
-                pass
-            elif action == "4":
-                #send to a function that takes in year and returns member ID
-                pass
-            while action != "b" and action != "q":
-                question = input("Do you want to:\n1. Sign a member to a sport\n2. Remove member from a sport\n3. Delete member\n4. Home\n")
-                if question == "1":
-                    pass
-                elif action == "2":
-                    pass
-                elif action == "3":
-                    pass
-                elif action == "4":
-                    action == "b"
-            return action
+                while action != "b" and action != "q":
+                    question = input("Do you want to:\n1. Sign a member to a sport\n2. Remove member from a sport\n3. Delete member\n4. Home\n").lower()
+                    if question == "1":
+                        pass
+                    elif action == "2":
+                        pass
+                    elif action == "3":
+                        pass
+                    elif action == "4":
+                        action == "b"
+                return action
+            action = input("Member not found, do you want to search agent? (y/n)").lower()
 
     def view_all_members(self):
         action = ''

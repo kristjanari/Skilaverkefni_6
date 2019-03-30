@@ -9,5 +9,5 @@ class MemberService:
         self.models_member.add_member(name, phone, email, year)
         # Update memberrepo!
         
-    def look_up_a_member_by_name(self, name):
-        return  self.models_member.find_member_by_name(name)
+    def look_up_a_member(self, looking_for, type):
+        return  self.models_member.find_member(looking_for, type)
