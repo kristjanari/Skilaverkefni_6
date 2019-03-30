@@ -13,6 +13,11 @@ class SportService:
     def remove_sport(self, name):
         del self.sport_map[name]
 
+    def remove_member_from_sports(self, id, sports):
+        for sport in sports:
+            for group in sports[sport]:
+                group.remove_member(id)
+
     def save_sports(self):
         self.sport_repo.write_sports(self.sport_map)
 
