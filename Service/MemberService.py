@@ -38,7 +38,7 @@ class MemberService:
             else:
                 del self.email_map[member.email]
             if len(self.year_map[member.birth_year]) > 1:
-                self.name_map[member.birth_year].remove(id)
+                self.year_map[member.birth_year].remove(id)
             else:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
@@ -70,7 +70,7 @@ class MemberService:
             self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [key]
             if key > max_id:
                 max_id = key
-        return max_id
+        return max_id + 1
 
     def get_member_orderd_by_name(self):
         ordered_member_list = []

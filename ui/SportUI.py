@@ -57,8 +57,11 @@ class SportUI:
                 else:
                     action = self.view_groups(sport)
             elif action == "2":
+                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
                 self.sport_service.remove_sport(sport)
-                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_members())
+                print("Sport deleted")
+                sleep(2)
+                action = "b"
         return action
 
     def view_groups(self, sport, member_id = False):
