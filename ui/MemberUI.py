@@ -48,10 +48,16 @@ class MemberUI:
         system("clear")
         print("Please Select one, If you want to quit press 'q' to go back press 'b'")
         print("-"*60)
+    
+    def action_eaquals_quit(self, action):
+        if action == "q":
+            return action
+        return ""
+
 
     def look_up_a_member(self):
         action = ""
-        while action != "n":
+        while action != "b" and action != "q" and action != "n":
             self.print_sentence()
             print('Look up a member by:')
             action = input("1. Name\n2. Phone\n3. Email\n4. Year of birth\n").lower()
@@ -76,7 +82,7 @@ class MemberUI:
                 self.print_members(member_list, text)
                 return self.allow_actions_with_member(member_list)
             action = input("Member not found, do you want to search again? (y/n)").lower()
-        return "b"
+        return self.action_eaquals_quit(action)
 
     def check_if_id_is_valid(self, selected_id, member_list):
         inside = False
@@ -91,7 +97,8 @@ class MemberUI:
 
     def allow_actions_with_member(self, member_list):
         action = ''
-        while action != "b" and action != "q":
+        while action != "b" and action != "q" and action != "n":
+            if member_list != []:
                 selected_id = input("Select a member's ID: ")
                 inside, selected_id = self.check_if_id_is_valid(selected_id, member_list)
                 if inside:
@@ -126,9 +133,10 @@ class MemberUI:
                     self.print_sentence
                     print("Invalid ID!")
                     action = input("Try again?")
-        if action == "q":
-            return action
-        return ""
+            else:
+                print("No members in system")
+                actions = "b"
+        return self.action_eaquals_quit(action)
 
     def view_all_members(self):
         action = ''
@@ -146,9 +154,7 @@ class MemberUI:
                 return self.allow_actions_with_member(member_list)
             elif action == "3":
                 pass
-        if action == "q":
-            return action
-        return ""
+        return self.action_eaquals_quit(action)
 
     def register_new_member(self):
         name = input("Name: ")
