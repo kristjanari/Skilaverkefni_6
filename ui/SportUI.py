@@ -138,14 +138,20 @@ class SportUI:
                 break
             except:
                 print("please enter a valid number")
-        leagal = self.sport_service.add_group(name, age_from, age_to, sport)
+        capacity = input("Max number of members: ")
+        leagal = self.sport_service.add_group(name, age_from, age_to, sport, capacity)
         return self.check_if_leagl(leagal, name)
 
     def check_if_leagl(self, leagal, texti):
-        if leagal:
+        if leagal == True:
             print("{} registerd".format(texti))
             sleep(1)
             return "ok"
-        print("{} already excist".format(texti))
-        sleep(1)
-        return ""
+        elif leagal == False:
+            print("{} already exist".format(texti))
+            sleep(1)
+            return ""
+        elif leagal == None:
+            print("Group is full.{} has been added to waiting list".format(texti))
+            sleep(1)
+            return "ok"

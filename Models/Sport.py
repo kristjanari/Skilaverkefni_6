@@ -6,8 +6,8 @@ class Sport:
         self.name = name
         self.groups = {}
 
-    def add_group(self, name, age_from, age_to):
-        sport_group = SportGroup(self.name, name, age_from, age_to)
+    def add_group(self, name, age_from, age_to, capacity):
+        sport_group = SportGroup(self.name, name, age_from, age_to, capacity)
         if not self.groups.get(name, False):
             self.groups[name] = sport_group
             return True
@@ -23,14 +23,12 @@ class Sport:
     def add_member(self, member_id, group, year):
         return group.add_member(member_id, year)
 
-
     def get_all_members(self):
         members = set()
         for group in self.groups:
             for member in group.members:
                 members.add(member)
         return members
-
 
     def __str__(self):
         return_str =  str(self.name) + "\n\t\tGroups:\n"

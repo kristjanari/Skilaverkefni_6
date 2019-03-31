@@ -35,14 +35,15 @@ class MemberUI:
             for group in group_list[index]:
                 print("\t{}".format(group))
 
-    def print_member_in_sports(self, group_list, sport_list):
+    def print_member_in_sports(self, member_list, sport_list):
+        repeat = ""
         for index, sport_name in enumerate(sport_list):
-            print("{}.{}".format(index + 1, sport_name))
-            print("\tMembers:")
-            for group in group_list[index]:
-                print("\t{}\n{}".format(group[0], group[1]))
+            if repeat != sport_name:
+                print("{}".format( sport_name))
+                print("\tMembers:")
+                repeat = sport_name
+            print("\tID: {}\n{}".format(member_list[index][0], member_list[index][1]))
 
-                    
     
     def print_members(self, members, text):
         system("clear")

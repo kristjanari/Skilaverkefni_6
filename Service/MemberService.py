@@ -99,7 +99,7 @@ class MemberService:
         for sport in self.sport_map:
             for id in self.sport_map[sport]:
                 ordered_member_list.append([id, self.members_map[id]])
-            sport_list.append(sport)
+                sport_list.append(sport)
         return ordered_member_list, sport_list
 
     def save_members(self):

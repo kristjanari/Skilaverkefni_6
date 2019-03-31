@@ -51,9 +51,8 @@ class SportService:
             member.add_group(sport, group)
         return leagal
 
-
-    def add_group(self, name, age_from, age_to, sport):
-        return self.sport_map[sport].add_group(name, age_from, age_to)
+    def add_group(self, name, age_from, age_to, sport, capacity):
+        return self.sport_map[sport].add_group(name, age_from, age_to, capacity)
 
     def remove_member_from_selected_sport(self, member_id, sport):
         sport = self.sport_map[sport]
