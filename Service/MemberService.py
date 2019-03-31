@@ -102,3 +102,8 @@ class MemberService:
             sports_list.append(sport)
             groups_list.append(groups)
         return sports_list, groups_list
+
+    def remove_sport_from_member(self, member_id, sport):
+        member = self.members_map[member_id]
+        del member.sports[sport]
+        

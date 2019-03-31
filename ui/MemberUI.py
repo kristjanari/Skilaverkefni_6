@@ -106,7 +106,7 @@ class MemberUI:
                                 if question == "y":
                                     sport = int(input("Select a sport"))
                                     try:
-                                        self.member_service.remove_sport_from_member(sport_list[sport-1])
+                                        self.member_service.remove_sport_from_member(selected_id, sport_list[sport-1])
                                     except:
                                         print("invalid sport")
                                         action = input("want to try again?").lower()
