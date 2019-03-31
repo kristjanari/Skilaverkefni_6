@@ -11,6 +11,7 @@ class MemberService:
         self.phone_map = {}
         self.email_map = {}
         self.year_map = SortedDict()
+        self.sport_map = SortedDict()
         self.unique_id = self.create_name_phone_email_year_map_and_return_unique_id()
 
     def add_member(self, name, phone, email, year):
@@ -19,7 +20,6 @@ class MemberService:
         self.name_map[member.name] = self.name_map.get(member.name,[]) + [self.unique_id]
         self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [self.unique_id]
         self.email_map[member.email] = self.email_map.get(member.email,[]) + [self.unique_id]
-        self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [self.unique_id]
         self.unique_id += 1
 
     def remove_member(self, id):
@@ -85,6 +85,14 @@ class MemberService:
             for id in self.year_map[name]:
                 ordered_member_list.append([id, self.members_map[id]])
         return ordered_member_list
+
+    def get_member_orderd_by_sport(self):
+        ordered_member_list = []
+        for sport in self.sport_map:
+            for id in self.sport_map[sport]:
+                ordered_member_list.append([id, self.members_map[id]])
+        return ordered_member_list
+
 
     def save_members(self):
         self.member_repo.write_members(self.members_map)
