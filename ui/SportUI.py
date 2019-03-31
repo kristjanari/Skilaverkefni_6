@@ -83,7 +83,7 @@ class SportUI:
                 try:
                     group = group_name_list[group_index - 1]
                     self.print_sentence()
-                    leagal = self.sport_service.assign_member_to_group(member_id, sport, group)
+                    leagal = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id], sport, group)
                     action = self.check_if_leagl(leagal, "Member")
                     return 'b'
                 except:

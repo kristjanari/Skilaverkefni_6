@@ -44,10 +44,13 @@ class SportService:
         return group_member_list, group_name_list
 
 
-    def assign_member_to_group(self, member_id, sport, group):
+    def assign_member_to_group(self, member_id, member, sport, group):
         sport_instance = self.sport_map[sport]
         groups_dict = sport_instance.groups
-        return self.sport_map[sport].add_member(member_id, groups_dict[group])
+        leagal = self.sport_map[sport].add_member(member_id, groups_dict[group])
+        if leagal:
+            member.add_group(sport, group)
+        return leagal
 
 
     def add_group(self, name, age_from, age_to, sport):

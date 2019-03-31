@@ -9,7 +9,7 @@ class Member:
         self.birth_year = birth_year
         self.sports = SortedDict()
 
-    def add_sport(self, sport, group):
+    def add_group(self, sport, group):
         self.sports[sport.name] = self.sports.get(sport.name, []) + [group.name]
 
     def remove_group(self, group):
