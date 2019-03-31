@@ -16,8 +16,8 @@ class Sport:
     def remove_member(self, name):
         del self.groups[name]
 
-    def add_member(self, member_id, group):
-        return group.add_member(member_id)
+    def add_member(self, member_id, group, year):
+        return group.add_member(member_id, year)
 
 
     def get_all_members(self):

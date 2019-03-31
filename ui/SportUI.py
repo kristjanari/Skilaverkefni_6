@@ -45,11 +45,11 @@ class SportUI:
                 action = self.view_all_sports()
         return action
 
-    def view_all_sports(self, member_id = False):
+    def view_all_sports(self, member_id = False, year = None):
         action = ''
         while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
-            if sport_list = []:
+            if sport_list == []:
                 self.print_sport(sport_list, "All sports: ")
                 sport_index = input("Select a sport: ")
                 try:
@@ -67,7 +67,7 @@ class SportUI:
                     action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
                 if action == "1":
                     if member_id:
-                        return self.view_groups(sport, member_id)
+                        return self.view_groups(sport, member_id, year)
                     else:
                         return self.view_groups(sport)
                 elif action == "2":
@@ -88,7 +88,7 @@ class SportUI:
         print("Not valid index!")
         return input("Try again?").lower()
 
-    def view_groups(self, sport, member_id = False):
+    def view_groups(self, sport, member_id = False, year = None):
         action = ''
         while action != "b" and action != "q" and action != "n":
             group_member_list, group_name_list = self.sport_service.get_all_groups(sport)
@@ -104,7 +104,7 @@ class SportUI:
                         continue
                     else:
                         break
-                leagal = self.sport_service.assign_member_to_group(member_id, sport, group)
+                leagal, right_age = self.sport_service.assign_member_to_group(member_id, sport, group, year)
                 action = self.check_if_leagl(leagal, "Member")
                 if action == "ok":
                     return 'b'
