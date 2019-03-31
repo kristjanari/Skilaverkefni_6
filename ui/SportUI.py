@@ -44,52 +44,62 @@ class SportUI:
         while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
             self.print_sport(sport_list, "All sports: ")
-            sport_index = int(input("Select a sport: "))
+            sport_index = input("Select a sport: ")
             try:
-                sport = sport_name_list[sport_index - 1]
-                self.print_sentence()
-                if member_id:
-                    action = '1'
-                else:
-                    action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
-                if action == "1":
-                    if member_id:
-                        action = self.view_groups(sport, member_id)
-                        return action
-                    else:
-                        action = self.view_groups(sport)
-                elif action == "2":
-                    action = self.register_group(sport)
-                elif action == "3":
-                    self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
-                    self.sport_service.remove_sport(sport)
-                    print("Sport deleted")
-                    sleep(1)
-                    action = "b"
+                sport = sport_name_list[int(sport_index) - 1]
             except:
+                action = self.not_a_valid_index()
+                if action == "y":
+                    continue
+                else:
+                    break
+            if member_id:
+                action = '1'
+            else:
                 self.print_sentence()
-                print("Not valid index!")
-                action = input("Try again?").lower()
+                action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
+            if action == "1":
+                if member_id:
+                    return self.view_groups(sport, member_id)
+                else:
+                    return self.view_groups(sport)
+            elif action == "2":
+                action = self.register_group(sport)
+                action = "b"
+            elif action == "3":
+                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
+                self.sport_service.remove_sport(sport)
+                print("Sport deleted")
+                sleep(1)
+                action = "b"
         return action
+
+    def not_a_valid_index(self):
+        self.print_sentence()
+        print("Not valid index!")
+        return input("Try again?").lower()
+
 
     def view_groups(self, sport, member_id = False):
         action = ''
-        while action != "b" and action != "q" and action != "n":
+        while action != "b" and action != "q":
             group_member_list, group_name_list = self.sport_service.get_all_groups(sport)
             texti = "All groups in {}:".format(sport)
             self.print_group(group_member_list, texti, group_name_list)
             if member_id:
-                group_index = int(input("Select a group: "))
+                group_index = input("Select a group: ")
                 try:
-                    group = group_name_list[group_index - 1]
-                    self.print_sentence()
-                    leagal = self.sport_service.assign_member_to_group(member_id, sport, group)
-                    action = self.check_if_leagl(leagal, "Member")
-                    return 'b'
+                    group = group_name_list[int(group_index) - 1]
                 except:
-                    self.print_sentence()
-                    print("Not valid index!")
-                    action = input("Try again?").lower()
+                    action = self.not_a_valid_index()
+                    if action == "y":
+                        continue
+                    else:
+                        break
+                self.print_sentence()
+                leagal = self.sport_service.assign_member_to_group(member_id, sport, group)
+                action = self.check_if_leagl(leagal, "Member")
+                return 'b'
             else:
                 ok = input("Press enter to continu")
                 return 'b'
