@@ -27,12 +27,21 @@ class MemberUI:
                 action =self.look_up_a_member()
         return action
 
+    def print_sports(self, group_list, sport_list, text):
+        print(text)
+        for index, sport_name in enumerate(sport_list):
+            print("{}.{}".format(index + 1, sport_name))
+            print("\tGroups:")
+            for group in group_list[index]:
+                print("\t{}".format(group))
+    
     def print_members(self, members, text):
         system("clear")
         print(text)
         for member in members:
             print("="*30)
             print("\tID: {}\n{}".format(member[0], member[1]))
+        print("="*30)
 
 
     def print_sentence(self):
@@ -79,21 +88,24 @@ class MemberUI:
     def allow_actions_with_member(self, member_list):
         action = ''
         while action != "b" and action != "q":
-            selected_id = input("Select a member's ID: ")
+            selected_id = int(input("Select a member's ID: "))
             inside = self.check_if_id_is_valid(selected_id, member_list)
             if inside:
                 self.print_sentence()
-                action = input("Do you want to:\n1. Sign a member to a sport\n2. Remove member from a sport\n3. Delete member\n").lower()
+                action = input("Do you want to:\n1. Sign a member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
                 if action == "1":
                     action = self.sportUi.view_all_sports(selected_id)
                 elif action == "2":
-                    pass
+                    group_list, sport_list = self.member_service.get_all_sports_for_member(selected_id)
+                    texti = "Sports for member {}".format(selected_id)
+                    self.print_sports( group_list, sport_list, texti)
                 elif action == "3":
-                    self.sport_service.remove_member_from_sports(int(selected_id), self.member_service.members_map[int(selected_id)].sports)
-                    self.member_service.remove_member(int(selected_id))
+                    self.sport_service.remove_member_from_sports(selected_id, self.member_service.members_map[selected_id].sports)
+                    self.member_service.remove_member(selected_id)
                     print("Member deleted")
                     sleep(2)
                     action = "b"
+
             else:
                 self.print_sentence
                 print("Invalid ID!")

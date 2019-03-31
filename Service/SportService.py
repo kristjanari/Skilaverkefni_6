@@ -34,14 +34,14 @@ class SportService:
         return sport_list, sport_name_list
 
     def get_all_groups(self, sport):
-        group_list = []
+        group_member_list = []
         group_name_list = []
         sport_instance = self.sport_map[sport]
         groups_dict = sport_instance.groups
         for group, value in groups_dict.items():
-            group_list.append(value.members)
+            group_member_list.append(value.members)
             group_name_list.append(group)
-        return group_list, group_name_list
+        return group_member_list, group_name_list
 
 
     def assign_member_to_group(self, member_id, sport, group):

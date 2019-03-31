@@ -16,11 +16,11 @@ class SportUI:
         for index, sport in enumerate(sports):
             print("\t{}. {}".format(index + 1, sport))
 
-    def print_group(self, groups, text, groups_name):
+    def print_group(self, groups_members, text, groups_name):
         print(text)
         for index, group_name in enumerate(groups_name):
             print("{}.{}".format(index + 1, group_name))
-            for member in groups[index]:
+            for member in groups_members[index]:
                 print("\tMembers ID:{}".format(member))
 
     def print_sentence(self):
@@ -44,9 +44,9 @@ class SportUI:
         while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
             self.print_sport(sport_list, "All sports: ")
-            sport_index = input("Select a sport: ").lower()
+            sport_index = int(input("Select a sport: "))
             try:
-                sport = sport_name_list[int(sport_index) - 1]
+                sport = sport_name_list[sport_index - 1]
                 self.print_sentence()
                 if member_id:
                     action = '1'
@@ -75,13 +75,13 @@ class SportUI:
     def view_groups(self, sport, member_id = False):
         action = ''
         while action != "b" and action != "q" and action != "n":
-            group_list, group_name_list = self.sport_service.get_all_groups(sport)
+            group_member_list, group_name_list = self.sport_service.get_all_groups(sport)
             texti = "All groups in {}:".format(sport)
-            self.print_group(group_list, texti, group_name_list)
+            self.print_group(group_member_list, texti, group_name_list)
             if member_id:
-                group_index = input("Select a group: ").lower()
+                group_index = int(input("Select a group: "))
                 try:
-                    group = group_name_list[int(group_index) - 1]
+                    group = group_name_list[group_index - 1]
                     self.print_sentence()
                     leagal = self.sport_service.assign_member_to_group(member_id, sport, group)
                     action = self.check_if_leagl(leagal, "Member")
