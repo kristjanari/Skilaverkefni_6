@@ -11,6 +11,7 @@ class MemberService:
         self.phone_map = {}
         self.email_map = {}
         self.year_map = SortedDict()
+        self.sport_map = SortedDict()
         self.unique_id = self.create_name_phone_email_year_map_and_return_unique_id()
 
     def add_member(self, name, phone, email, year):
@@ -68,6 +69,8 @@ class MemberService:
             self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [key]
             self.email_map[member.name] = self.email_map.get(member.email,[]) + [key]
             self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [key]
+            for sport in member.sports:
+                self.year_map[sport] = self.year_map.get(sport ,[]) + [key]
             if key > max_id:
                 max_id = key
         return max_id + 1

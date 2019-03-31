@@ -49,35 +49,39 @@ class SportUI:
         action = ''
         while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
-            self.print_sport(sport_list, "All sports: ")
-            sport_index = input("Select a sport: ")
-            try:
-                sport = sport_name_list[int(sport_index) - 1]
-            except:
-                action = self.not_a_valid_index()
-                if action == "y":
-                    continue
-                else:
-                    break
-            if member_id:
-                action = '1'
-            else:
-                self.print_sentence()
-                action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
-            if action == "1":
+            if sport_list == []:
+                self.print_sport(sport_list, "All sports: ")
+                sport_index = input("Select a sport: ")
+                try:
+                    sport = sport_name_list[int(sport_index) - 1]
+                except:
+                    action = self.not_a_valid_index()
+                    if action == "y":
+                        continue
+                    else:
+                        break
                 if member_id:
-                    return self.view_groups(sport, member_id)
+                    action = '1'
                 else:
-                    return self.view_groups(sport)
-            elif action == "2":
-                action = self.register_group(sport)
-            elif action == "3":
-                self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
-                self.sport_service.remove_sport(sport)
-                del self.member_service.sport_map[sport]
-                print("Sport deleted")
-                sleep(1)
-                action = "b"
+                    self.print_sentence()
+                    action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
+                if action == "1":
+                    if member_id:
+                        return self.view_groups(sport, member_id)
+                    else:
+                        return self.view_groups(sport)
+                elif action == "2":
+                    action = self.register_group(sport)
+                elif action == "3":
+                    self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
+                    self.sport_service.remove_sport(sport)
+                    del self.member_service.sport_map[sport]
+                    print("Sport deleted")
+                    sleep(1)
+                    action = "b"
+            else:
+                print("No sport in system")
+                action = 'b'
         return self.action_eaquals_quit(action)
 
     def not_a_valid_index(self):

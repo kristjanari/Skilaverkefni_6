@@ -159,7 +159,8 @@ class MemberUI:
                 self.print_members(member_list, "")
                 return self.allow_actions_with_member(member_list)
             elif action == "3":
-                pass
+                member_list = self.member_service.get_member_orderd_by_sport()
+                self.print_members(member_list, "")
         return self.action_eaquals_quit(action)
 
     def register_new_member(self):
