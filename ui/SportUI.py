@@ -21,12 +21,12 @@ class SportUI:
         for index, group_name in enumerate(groups_name):
             print("{}.{}".format(index + 1, group_name))
             for member in groups[index]:
-                print("\tMember:{}".format(member))
+                print("\tMembers ID:{}".format(member))
 
     def print_sentence(self):
         system("clear")
         print("Please Select one, If you want to quit press 'q' to go back press 'b'")
-        print("-"*30)
+        print("-"*60)
 
     def sport_menu(self):
         action = ''
@@ -41,7 +41,7 @@ class SportUI:
 
     def view_all_sports(self, member_id = False):
         action = ''
-        while action != "b" and action != "q":
+        while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
             self.print_sport(sport_list, "All sports: ")
             sport_index = input("Select a sport: ").lower()
@@ -69,12 +69,12 @@ class SportUI:
             except:
                 self.print_sentence()
                 print("Not valid index!")
-                action = input("Try again?")
+                action = input("Try again?").lower()
         return action
 
     def view_groups(self, sport, member_id = False):
         action = ''
-        while action != "b" and action != "q":
+        while action != "b" and action != "q" and action != "n":
             group_list, group_name_list = self.sport_service.get_all_groups(sport)
             texti = "All groups in {}:".format(sport)
             self.print_group(group_list, texti, group_name_list)
@@ -89,7 +89,7 @@ class SportUI:
                 except:
                     self.print_sentence()
                     print("Not valid index!")
-                    action = input("Try again?")
+                    action = input("Try again?").lower()
             else:
                 ok = input("Press enter to continu")
                 return 'b'

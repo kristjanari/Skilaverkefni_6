@@ -29,7 +29,7 @@ class Sport:
 
 
     def __str__(self):
-        return_str =  str(self.name) + "\n\tteams:\n"
+        return_str =  str(self.name) + "\n\t\tGroups:\n"
         for index, group in enumerate(self.groups):
             return_str += '\t\t' + str(index + 1) + ". "
             return_str += str(group) + "\n"

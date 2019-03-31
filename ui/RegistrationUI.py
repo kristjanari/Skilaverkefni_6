@@ -17,6 +17,7 @@ class RegistrationUI:
         while action != "q":
             system("clear")
             print("Please Select one, If you want to quit press 'q'")
+            print("-"*60)
             action = input("1. Sport\n2. Member\n3. Save\n").lower()
             if action == "1":
                 action = self.__sportUI.sport_menu()
@@ -25,4 +26,6 @@ class RegistrationUI:
             elif action == "3":
                 self.__memberUI.save()
                 self.__sportUI.save()
+                print("Files Saved")
+
 

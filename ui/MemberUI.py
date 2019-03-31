@@ -30,13 +30,15 @@ class MemberUI:
     def print_members(self, members, text):
         system("clear")
         print(text)
-        for index, member in enumerate(members):
-                    print("Member {} :\n\tID: {}\n{}".format(index + 1, member[0], member[1]))
+        for member in members:
+            print("="*30)
+            print("\tID: {}\n{}".format(member[0], member[1]))
 
 
     def print_sentence(self):
         system("clear")
         print("Please Select one, If you want to quit press 'q' to go back press 'b'")
+        print("-"*60)
 
     def look_up_a_member(self):
         action = ""
