@@ -88,25 +88,42 @@ class MemberUI:
     def allow_actions_with_member(self, member_list):
         action = ''
         while action != "b" and action != "q":
-            selected_id = int(input("Select a member's ID: "))
-            inside = self.check_if_id_is_valid(selected_id, member_list)
-            if inside:
-                self.print_sentence()
-                action = input("Do you want to:\n1. Sign a member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
-                if action == "1":
-                    action = self.sportUi.view_all_sports(selected_id)
-                elif action == "2":
-                    group_list, sport_list = self.member_service.get_all_sports_for_member(selected_id)
-                    texti = "Sports for member {}".format(selected_id)
-                    self.print_sports( group_list, sport_list, texti)
-                elif action == "3":
-                    self.sport_service.remove_member_from_sports(selected_id, self.member_service.members_map[selected_id].sports)
-                    self.member_service.remove_member(selected_id)
-                    print("Member deleted")
-                    sleep(2)
-                    action = "b"
-
-            else:
+            try:
+                selected_id = int(input("Select a member's ID: "))
+                inside = self.check_if_id_is_valid(selected_id, member_list)
+                if inside:
+                    self.print_sentence()
+                    action = input("Do you want to:\n1. Sign a member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
+                    if action == "1":
+                        action = self.sportUi.view_all_sports(selected_id)
+                    elif action == "2":
+                        while action != "b" and action != "q" and action != 'n':
+                            sport_list, group_list = self.member_service.get_all_sports_for_member(selected_id)
+                            if sport_list != []:
+                                texti = "Sports for member {}".format(selected_id)
+                                self.print_sports( group_list, sport_list, texti)
+                                question = input('Do you want remove member from any sport?(y/n)').lower()
+                                if question == "y":
+                                    sport = int(input("Select a sport"))
+                                    try:
+                                        self.member_service.remove_sport_from_member(sport_list[sport-1])
+                                    except:
+                                        print("invalid sport")
+                                        action = input("want to try again?").lower()
+                            else:
+                                print("Member not assigned to any sport!")
+                                action = "n"
+                    elif action == "3":
+                        self.sport_service.remove_member_from_sports(selected_id, self.member_service.members_map[selected_id].sports)
+                        self.member_service.remove_member(selected_id)
+                        print("Member deleted")
+                        sleep(2)
+                        action = "b"
+                else:
+                    self.print_sentence
+                    print("Invalid ID!")
+                    action = input("Try again?")
+            except:
                 self.print_sentence
                 print("Invalid ID!")
                 action = input("Try again?")
