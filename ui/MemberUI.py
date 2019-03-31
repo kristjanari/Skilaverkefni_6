@@ -80,17 +80,20 @@ class MemberUI:
 
     def check_if_id_is_valid(self, selected_id, member_list):
         inside = False
+        try:
+            selected_id = int(selected_id)
+        except:
+            return inside
         for member in member_list:
-            if int(selected_id) == member[0]:
+            if selected_id == member[0]:
                 inside = True
-        return inside
+        return inside, selected_id
 
     def allow_actions_with_member(self, member_list):
         action = ''
         while action != "b" and action != "q":
-            try:
-                selected_id = int(input("Select a member's ID: "))
-                inside = self.check_if_id_is_valid(selected_id, member_list)
+                selected_id = input("Select a member's ID: ")
+                inside, selected_id = self.check_if_id_is_valid(selected_id, member_list)
                 if inside:
                     self.print_sentence()
                     action = input("Do you want to:\n1. Sign a member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
@@ -106,7 +109,7 @@ class MemberUI:
                                 if question == "y":
                                     sport = int(input("Select a sport"))
                                     try:
-                                        self.member_service.remove_sport_from_member(sport_list[sport-1])
+                                        self.member_service.remove_sport_from_member(selected_id, sport_list[sport-1])
                                     except:
                                         print("invalid sport")
                                         action = input("want to try again?").lower()
@@ -123,10 +126,6 @@ class MemberUI:
                     self.print_sentence
                     print("Invalid ID!")
                     action = input("Try again?")
-            except:
-                self.print_sentence
-                print("Invalid ID!")
-                action = input("Try again?")
         if action == "q":
             return action
         return ""
