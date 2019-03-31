@@ -43,7 +43,11 @@ class MemberService:
             else:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
-        
+            for sport in member.sports:
+                if len(self.sport_map[sport]) > 1:
+                    self.sport_map[sport].remove(id)
+                else:
+                    del self.sport_map[sport]
 
     def find_member(self, looking_for, type):
         if type == "name":
@@ -109,4 +113,8 @@ class MemberService:
     def remove_sport_from_member(self, member_id, sport):
         member = self.members_map[member_id]
         del member.sports[sport]
+        if len(self.sport_map[sport]) > 1:
+                self.sport_map[sport].remove(member_id)
+        else:
+                del self.sport_map[member_id]
         
