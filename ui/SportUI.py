@@ -20,8 +20,9 @@ class SportUI:
         print(text)
         for index, group_name in enumerate(groups_name):
             print("{}.{}".format(index + 1, group_name))
+            print("\tMembers:")
             for member in groups_members[index]:
-                print("\tMembers ID: {}".format(member))
+                print("\tID: {}\tName: {}".format(member, self.member_service.members_map.get(int(member)).name))
 
     def print_sentence(self):
         system("clear")
@@ -45,7 +46,7 @@ class SportUI:
                 action = self.view_all_sports()
         return action
 
-    def view_all_sports(self, member_id = False):
+    def view_all_sports(self, member_id = False, year = None):
         action = ''
         while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
@@ -59,7 +60,7 @@ class SportUI:
                     if action == "y":
                         continue
                     else:
-                        break
+                        return "b"
                 if member_id:
                     action = '1'
                 else:
@@ -67,7 +68,7 @@ class SportUI:
                     action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
                 if action == "1":
                     if member_id:
-                        return self.view_groups(sport, member_id)
+                        return self.view_groups(sport, member_id, year)
                     else:
                         return self.view_groups(sport)
                 elif action == "2":
@@ -90,11 +91,12 @@ class SportUI:
         print("Not valid index!")
         return input("Try again?").lower()
 
-    def view_groups(self, sport, member_id = False):
+    def view_groups(self, sport, member_id = False, year = None):
         action = ''
         while action != "b" and action != "q" and action != "n":
             group_member_list, group_name_list = self.sport_service.get_all_groups(sport)
             texti = "All groups in {}:".format(sport)
+            system("clear")
             self.print_group(group_member_list, texti, group_name_list)
             if member_id:
                 group_index = input("Select a group: ")
@@ -106,11 +108,16 @@ class SportUI:
                         continue
                     else:
                         break
-                leagal = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id],sport, group)
-                self.member_service.sport_map[sport] = self.member_service.sport_map.get(sport ,[]) + [member_id]
-                action = self.check_if_leagl(leagal, "Member")
-                if action == "ok":
-                    return 'b'
+                leagal, right_age = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id],sport, group, year)
+                if not right_age:
+                    print("Member is not in appropriate age range")
+                    sleep(1)
+                else:
+                    action = self.check_if_leagl(leagal, "Member")
+                    if action == "ok":
+                        self.member_service.sport_map[sport] = self.member_service.sport_map.get(sport ,[]) + [member_id]
+                        return 'b'
+                self.print_sentence()
                 action = input("Do you want to try again?")
             else:
                 ok = input("Press enter to continu")
@@ -124,8 +131,13 @@ class SportUI:
 
     def register_group(self, sport):
         name = input("Name: ")
-        age_from = input("Age From: ")
-        age_to = input("Age limit: ")
+        while True:
+            try:
+                age_from = int(input("Age From: "))
+                age_to =int(input("Age limit: "))
+                break
+            except:
+                print("please enter a valid number")
         capacity = input("Max number of members: ")
         leagal = self.sport_service.add_group(name, age_from, age_to, sport, capacity)
         return self.check_if_leagl(leagal, name)

@@ -1,5 +1,6 @@
 from Models.bst import BinarySearchTree
 from Models.Queue import LinkedList
+import datetime
 
 class SportGroup:
 
@@ -14,15 +15,16 @@ class SportGroup:
         self.size = 0
 
     def add_member(self, member_id):
-        if member_id in self.members:
-            return False
+        question = self.is_member_right_age(year)
+        if member_id in self.members or not question:
+            return False, question
         if self.size >= self.capacity:
             self.add_to_waiting_queue(member_id)
-            return None
+            return None, question
         else:
             self.members.append(member_id)
             self.size += 1
-            return True
+            return True, question
         
     def remove_member(self, member_id):
         if member_id in self.members:
@@ -38,3 +40,9 @@ class SportGroup:
 
     def get_next_in_waiting_queue(self):
         return self.queue.pop()
+    def is_member_right_age(self, year):
+        date = datetime.datetime.now()
+        age = int(date.year) - int(year)
+        if int(self.age_from) <= age and int(self.age_to) >= age:
+            return True
+        return False
