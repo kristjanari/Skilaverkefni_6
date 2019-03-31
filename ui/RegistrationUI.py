@@ -3,6 +3,7 @@ from ui.MemberUI import MemberUI
 from os import system, name
 from Service.MemberService import MemberService
 from Service.SportService import SportService
+from time import sleep
 
 class RegistrationUI:
 
@@ -27,5 +28,6 @@ class RegistrationUI:
                 self.__memberUI.save()
                 self.__sportUI.save()
                 print("Files Saved")
+                sleep(1)
 
 

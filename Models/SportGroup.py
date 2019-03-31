@@ -16,7 +16,8 @@ class SportGroup:
         return True
         
     def remove_member(self, member_id):
-        self.members.remove(member_id)
+        if member_id in self.members:
+            self.members.remove(member_id)
 
     def __str__(self):
         return "{}: {}-{} years".format(self.name, self.age_from, self.age_to)

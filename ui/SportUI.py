@@ -21,12 +21,18 @@ class SportUI:
         for index, group_name in enumerate(groups_name):
             print("{}.{}".format(index + 1, group_name))
             for member in groups_members[index]:
-                print("\tMembers ID:{}".format(member))
+                print("\tMembers ID: {}".format(member))
 
     def print_sentence(self):
         system("clear")
         print("Please Select one, If you want to quit press 'q' to go back press 'b'")
         print("-"*60)
+
+    def action_eaquals_quit(self, action):
+        if action == "q":
+            return action
+        return ""
+
 
     def sport_menu(self):
         action = ''
@@ -65,24 +71,23 @@ class SportUI:
                     return self.view_groups(sport)
             elif action == "2":
                 action = self.register_group(sport)
-                action = "b"
             elif action == "3":
                 self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
                 self.sport_service.remove_sport(sport)
+                del self.member_service.sport_map[sport]
                 print("Sport deleted")
                 sleep(1)
                 action = "b"
-        return action
+        return self.action_eaquals_quit(action)
 
     def not_a_valid_index(self):
         self.print_sentence()
         print("Not valid index!")
         return input("Try again?").lower()
 
-
     def view_groups(self, sport, member_id = False):
         action = ''
-        while action != "b" and action != "q":
+        while action != "b" and action != "q" and action != "n":
             group_member_list, group_name_list = self.sport_service.get_all_groups(sport)
             texti = "All groups in {}:".format(sport)
             self.print_group(group_member_list, texti, group_name_list)
@@ -97,12 +102,16 @@ class SportUI:
                     else:
                         break
                 leagal = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id],sport, group)
+                self.member_service.sport_map[sport] = member_id
+                self.member_service.sport_map[sport] = self.member_service.sport_map.get(sport ,[]) + [member_id]
                 action = self.check_if_leagl(leagal, "Member")
-                return 'b'
+                if action == "ok":
+                    return 'b'
+                action = input("Do you want to try again?")
             else:
                 ok = input("Press enter to continu")
                 return 'b'
-        return action
+        return self.action_eaquals_quit(action)
 
     def register_sport(self):
         name = input("Name: ")
@@ -123,4 +132,4 @@ class SportUI:
             return "ok"
         print("{} already excist".format(texti))
         sleep(1)
-        return "ok"
+        return ""

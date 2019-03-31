@@ -13,8 +13,12 @@ class Sport:
             return True
         return False
 
-    def remove_member(self, name):
+    def remove_group(self, name):
         del self.groups[name]
+
+    def remove_member(self, member_id):
+        for group in self.groups:
+            self.groups[group].remove_member(member_id)
 
     def add_member(self, member_id, group):
         return group.add_member(member_id)
