@@ -23,7 +23,7 @@ class Member:
         del self.sports[sport_name]
 
     def __str__(self):
-        return "Name: {}\nPhone number: {}\nEmail: {}\nYear of birth: {}\n".format(self.name,
+        return "\tName: {}\n\tPhone number: {}\n\tEmail: {}\n\tYear of birth: {}\n".format(self.name,
             self.phone, self.email, self.birth_year)
 
     def _print_one_line(self):

@@ -8,14 +8,17 @@ class Sport:
 
     def add_group(self, name, age_from, age_to):
         sport_group = SportGroup(self.name, name, age_from, age_to)
-        self.groups[name] = self.groups.get(name, []) + [sport_group]
+        if not self.groups.get(name, False):
+            self.groups[name] = sport_group
+            return True
+        return False
 
     def remove_member(self, name):
         del self.groups[name]
 
     def add_member(self, member_id, group):
-        group.add_member(member_id)
-        
+        return group.add_member(member_id)
+
 
     def get_all_members(self):
         members = set()
@@ -26,8 +29,9 @@ class Sport:
 
 
     def __str__(self):
-        return_str = str(self.name) + ":\n"
-        for group in self.groups:
+        return_str =  str(self.name) + "\n\tteams:\n"
+        for index, group in enumerate(self.groups):
+            return_str += '\t\t' + str(index + 1) + ". "
             return_str += str(group) + "\n"
         return return_str
 

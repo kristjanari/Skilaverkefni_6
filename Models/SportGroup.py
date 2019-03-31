@@ -10,8 +10,11 @@ class SportGroup:
         self.members = []
 
     def add_member(self, member_id):
+        if member_id in self.members:
+            return False
         self.members.append(member_id)
-
+        return True
+        
     def remove_member(self, member_id):
         self.members.remove(member_id)
 
