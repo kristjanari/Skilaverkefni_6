@@ -131,8 +131,13 @@ class SportUI:
 
     def register_group(self, sport):
         name = input("Name: ")
-        age_from = input("Age From: ")
-        age_to = input("Age limit: ")
+        while True:
+            try:
+                age_from = int(input("Age From: "))
+                age_to =int(input("Age limit: "))
+                break
+            except:
+                print("please enter a valid number")
         leagal = self.sport_service.add_group(name, age_from, age_to, sport)
         return self.check_if_leagl(leagal, name)
 

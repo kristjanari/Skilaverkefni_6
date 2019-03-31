@@ -89,7 +89,7 @@ class MemberUI:
         try:
             selected_id = int(selected_id)
         except:
-            return inside
+            return inside, selected_id, False
         for member in member_list:
             if selected_id == member[0]:
                 year = member[1].birth_year
