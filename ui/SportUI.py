@@ -49,7 +49,7 @@ class SportUI:
         action = ''
         while action != "b" and action != "q" and action != "n":
             sport_list, sport_name_list = self.sport_service.get_all_sports()
-            if sport_list == []:
+            if sport_list != []:
                 self.print_sport(sport_list, "All sports: ")
                 sport_index = input("Select a sport: ")
                 try:
@@ -81,6 +81,7 @@ class SportUI:
                     action = "b"
             else:
                 print("No sport in system")
+                sleep(1)
                 action = 'b'
         return self.action_eaquals_quit(action)
 
@@ -106,7 +107,6 @@ class SportUI:
                     else:
                         break
                 leagal = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id],sport, group)
-                self.member_service.sport_map[sport] = member_id
                 self.member_service.sport_map[sport] = self.member_service.sport_map.get(sport ,[]) + [member_id]
                 action = self.check_if_leagl(leagal, "Member")
                 if action == "ok":
@@ -126,14 +126,20 @@ class SportUI:
         name = input("Name: ")
         age_from = input("Age From: ")
         age_to = input("Age limit: ")
-        leagal = self.sport_service.add_group(name, age_from, age_to, sport)
+        capacity = input("Max number of members: ")
+        leagal = self.sport_service.add_group(name, age_from, age_to, sport, capacity)
         return self.check_if_leagl(leagal, name)
 
     def check_if_leagl(self, leagal, texti):
-        if leagal:
+        if leagal == True:
             print("{} registerd".format(texti))
             sleep(1)
             return "ok"
-        print("{} already excist".format(texti))
-        sleep(1)
-        return ""
+        elif leagal == False:
+            print("{} already exist".format(texti))
+            sleep(1)
+            return ""
+        elif leagal == None:
+            print("Group is full.{} has been added to waiting list".format(texti))
+            sleep(1)
+            return "ok"
