@@ -10,7 +10,7 @@ class Member:
         self.sports = SortedDict()
 
     def add_group(self, sport, group):
-        self.sports[sport.name] = self.sports.get(sport.name, []) + [group.name]
+        self.sports[sport] = self.sports.get(sport, []) + [group]
 
     def remove_group(self, group):
         sport_name = group.sport
