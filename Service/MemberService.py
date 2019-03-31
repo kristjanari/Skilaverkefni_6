@@ -74,7 +74,7 @@ class MemberService:
             self.email_map[member.name] = self.email_map.get(member.email,[]) + [key]
             self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [key]
             for sport in member.sports:
-                self.year_map[sport] = self.year_map.get(sport ,[]) + [key]
+                self.sport_map[sport] = self.sport_map.get(sport ,[]) + [key]
             if key > max_id:
                 max_id = key
         return max_id + 1
@@ -88,10 +88,19 @@ class MemberService:
 
     def get_member_orderd_by_year(self):
         ordered_member_list = []
-        for name in self.year_map:
-            for id in self.year_map[name]:
+        for year in self.year_map:
+            for id in self.year_map[year]:
                 ordered_member_list.append([id, self.members_map[id]])
         return ordered_member_list
+
+    def get_member_orderd_by_sport(self):
+        ordered_member_list = []
+        sport_list = []
+        for sport in self.sport_map:
+            for id in self.sport_map[sport]:
+                ordered_member_list.append([id, self.members_map[id]])
+            sport_list.append(sport)
+        return ordered_member_list, sport_list
 
     def save_members(self):
         self.member_repo.write_members(self.members_map)
