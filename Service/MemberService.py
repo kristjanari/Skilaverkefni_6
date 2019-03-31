@@ -92,4 +92,13 @@ class MemberService:
     def remove_sport_from_members(self, sport, members):
         for member in members:
             del member.sports[sport]
-        
+
+    def get_all_sports_for_member(self, member_id):
+        member = self.members_map[member_id]
+        sports_list = []
+        groups_list = []
+        sport_group_dict = member.sports
+        for sport, groups in sport_group_dict.items():
+            sports_list.append(sport)
+            groups_list.append(groups)
+        return sports_list, groups_list
