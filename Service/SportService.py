@@ -19,8 +19,7 @@ class SportService:
 
     def remove_member_from_sports(self, id, sports):
         for sport in sports:
-            for group in sports[sport]:
-                group.remove_member(id)
+            sport.remove_member(id)
 
     def save_sports(self):
         self.sport_repo.write_sports(self.sport_map)
@@ -44,11 +43,18 @@ class SportService:
         return group_member_list, group_name_list
 
 
-    def assign_member_to_group(self, member_id, sport, group, year):
+    def assign_member_to_group(self, member_id, member, sport, group, year):
         sport_instance = self.sport_map[sport]
         groups_dict = sport_instance.groups
-        return self.sport_map[sport].add_member(member_id, groups_dict[group], year)
+        leagal = self.sport_map[sport].add_member(member_id, groups_dict[group], year)
+        if leagal:
+            member.add_group(sport, group)
+        return leagal
 
 
     def add_group(self, name, age_from, age_to, sport):
         return self.sport_map[sport].add_group(name, age_from, age_to)
+
+    def remove_member_from_selected_sport(self, member_id, sport):
+        sport = self.sport_map[sport]
+        sport.remove_member(member_id)

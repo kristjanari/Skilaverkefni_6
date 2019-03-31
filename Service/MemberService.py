@@ -20,6 +20,7 @@ class MemberService:
         self.name_map[member.name] = self.name_map.get(member.name,[]) + [self.unique_id]
         self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [self.unique_id]
         self.email_map[member.email] = self.email_map.get(member.email,[]) + [self.unique_id]
+        self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [self.unique_id]
         self.unique_id += 1
 
     def remove_member(self, id):
@@ -42,7 +43,11 @@ class MemberService:
             else:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
-        
+            for sport in member.sports:
+                if len(self.sport_map[sport]) > 1:
+                    self.sport_map[sport].remove(id)
+                else:
+                    del self.sport_map[sport]
 
     def find_member(self, looking_for, type):
         if type == "name":
@@ -68,6 +73,8 @@ class MemberService:
             self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [key]
             self.email_map[member.name] = self.email_map.get(member.email,[]) + [key]
             self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [key]
+            for sport in member.sports:
+                self.year_map[sport] = self.year_map.get(sport ,[]) + [key]
             if key > max_id:
                 max_id = key
         return max_id + 1
@@ -86,14 +93,6 @@ class MemberService:
                 ordered_member_list.append([id, self.members_map[id]])
         return ordered_member_list
 
-    def get_member_orderd_by_sport(self):
-        ordered_member_list = []
-        for sport in self.sport_map:
-            for id in self.sport_map[sport]:
-                ordered_member_list.append([id, self.members_map[id]])
-        return ordered_member_list
-
-
     def save_members(self):
         self.member_repo.write_members(self.members_map)
 
@@ -110,3 +109,12 @@ class MemberService:
             sports_list.append(sport)
             groups_list.append(groups)
         return sports_list, groups_list
+
+    def remove_sport_from_member(self, member_id, sport):
+        member = self.members_map[member_id]
+        del member.sports[sport]
+        if len(self.sport_map[sport]) > 1:
+                self.sport_map[sport].remove(member_id)
+        else:
+                del self.sport_map[member_id]
+        

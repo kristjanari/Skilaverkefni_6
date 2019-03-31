@@ -119,11 +119,17 @@ class MemberUI:
                                     sport = int(input("Select a sport"))
                                     try:
                                         self.member_service.remove_sport_from_member(selected_id, sport_list[sport-1])
+                                        self.sport_service.remove_member_from_selected_sport(selected_id, sport_list[sport-1])
+                                        print("Member successfully removed from sport and all groups in that sport")
+                                        sleep(1)
                                     except:
                                         print("invalid sport")
                                         action = input("want to try again?").lower()
+                                else:
+                                    action = "n"
                             else:
                                 print("Member not assigned to any sport!")
+                                sleep(1)
                                 action = "n"
                     elif action == "3":
                         self.sport_service.remove_member_from_sports(selected_id, self.member_service.members_map[selected_id].sports)
