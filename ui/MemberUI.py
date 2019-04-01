@@ -1,6 +1,7 @@
 from os import system, name
 from time import sleep
 from ui.SportUI import SportUI
+import datetime
 
 
 
@@ -67,7 +68,6 @@ class MemberUI:
             return action
         return ""
 
-
     def look_up_a_member(self):
         action = ""
         while action != "b" and action != "q" and action != "n":
@@ -93,7 +93,7 @@ class MemberUI:
                 text = "Members born {}:".format(year)
             if member_list:
                 self.print_members(member_list, text)
-                return self.allow_actions_with_member(member_list)
+                action = self.allow_actions_with_member(member_list)
             action = input("Member not found, do you want to search again? (y/n)").lower()
         return self.action_eaquals_quit(action)
 
@@ -173,23 +173,34 @@ class MemberUI:
             if action == "1":
                 member_list = self.member_service.get_member_orderd_by_name()
                 self.print_members(member_list, "")
-                return self.allow_actions_with_member(member_list)
+                action = self.allow_actions_with_member(member_list)
             elif action == "2":
                 member_list = self.member_service.get_member_orderd_by_year()
                 self.print_members(member_list, "")
-                return self.allow_actions_with_member(member_list)
+                action = self.allow_actions_with_member(member_list)
             elif action == "3":
                 member_list, sport_list = self.member_service.get_member_orderd_by_sport()
                 self.print_member_in_sports(member_list, sport_list)
-                return self.allow_actions_with_member(member_list)
+                action = self.allow_actions_with_member(member_list)
         return self.action_eaquals_quit(action)
 
     def register_new_member(self):
         name = input("Name: ")
         phone = input("Phone: ")
         email = input("Email: ")
-        year = input("Year of birth: ")
+        while True:
+            try:
+                year = input("Year: ")
+                self.check_if_year_is_acceptable(year)
+            except:
+                print("please input valid Year")
         self.member_service.add_member(name, phone, email, year)
         print("Member registerd")
         sleep(2)
         return 'OK'
+
+    def check_if_year_is_acceptable(self, year):
+        date = datetime.datetime.now()
+        year = int(year)
+        if year > int(date.year):
+            raise IndexError()
