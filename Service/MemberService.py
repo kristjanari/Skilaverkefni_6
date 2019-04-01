@@ -1,6 +1,7 @@
 from Models.Member import Member
 from Repository.MemberRepository import MemberRepository
 from sortedcontainers import SortedDict
+import datetime
 
 class MemberService:
 
@@ -127,3 +128,8 @@ class MemberService:
         else:
                 del self.sport_map[member_id]
         
+    def fill_member(self):
+        date = datetime.datetime.now()
+        list_of_members = self.member_repo.get_members()
+        for member in list_of_members:
+            self.add_member(member[0], member[1], member[2], str(int(date.year) - int(member[3])))

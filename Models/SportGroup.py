@@ -40,6 +40,7 @@ class SportGroup:
 
     def get_next_in_waiting_queue(self):
         return self.queue.pop()
+        
     def is_member_right_age(self, year):
         date = datetime.datetime.now()
         age = int(date.year) - int(year)

@@ -15,3 +15,11 @@ class MemberRepository:
         pickle_file = open("./Data/members.pickle", "wb")
         pickle.dump(members_dict, pickle_file)
         pickle_file.close()
+
+    def get_members(self):
+        customers = []
+        with open("./Data/convertcsv.csv", encoding = "UTF-8") as member_file:
+            for row in member_file.readlines():
+                customer = row.split(",")
+                customers.append(customer)
+        return customers
