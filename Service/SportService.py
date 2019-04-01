@@ -39,7 +39,7 @@ class SportService:
         groups_dict = sport_instance.groups
         for group, value in groups_dict.items():
             group_member_list.append(value.members)
-            group_name_list.append(group)
+            group_name_list.append(value)
         return group_member_list, group_name_list
 
 

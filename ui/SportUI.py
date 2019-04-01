@@ -16,10 +16,10 @@ class SportUI:
         for index, sport in enumerate(sports):
             print("\t{}. {}".format(index + 1, sport))
 
-    def print_group(self, groups_members, text, groups_name):
+    def print_group(self, groups_members, text, groups_list):
         print(text)
-        for index, group_name in enumerate(groups_name):
-            print("{}.{}".format(index + 1, group_name))
+        for index, group in enumerate(groups_list):
+            print("{}.{}".format(index + 1, group))
             print("\tMembers:")
             for member in groups_members[index]:
                 print("\tID: {}\tName: {}".format(member, self.member_service.members_map.get(int(member)).name))
