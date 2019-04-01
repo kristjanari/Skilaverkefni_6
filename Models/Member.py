@@ -9,13 +9,16 @@ class Member:
         self.birth_year = birth_year
         self.sports = SortedDict()
 
-    def add_group(self, sport, group):
-        self.sports[sport] = self.sports.get(sport, []) + [group]
+    def add_group(self, sport, group, waiting_list = False):
+        self.sports[sport] = self.sports.get(sport, []) + [(group, waiting_list)]
 
     def remove_group(self, group):
         sport_name = group.sport
         if len(self.sports[sport_name]) > 1:
-                self.sports[sport_name].remove(group.name)
+            try:
+                self.sports[sport_name].remove(group.name, True)
+            except:
+                self.sports[sport_name].remove(group.name, False)
         else:
             del self.sports[sport_name]
 

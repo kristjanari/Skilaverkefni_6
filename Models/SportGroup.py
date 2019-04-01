@@ -17,14 +17,14 @@ class SportGroup:
     def add_member(self, member_id, year):
         question = self.is_member_right_age(year)
         if member_id in self.members or not question:
-            return False, question
+            return False, question, False
         if self.size >= self.capacity:
             self.add_to_waiting_queue([member_id, year])
-            return None, question
+            return None, question, True
         else:
             self.members.append(member_id)
             self.size += 1
-            return True, question
+            return True, question, False
         
     def remove_member(self, member_id):
         if member_id in self.members:
