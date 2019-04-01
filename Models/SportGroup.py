@@ -19,18 +19,19 @@ class SportGroup:
         if member_id in self.members or not question:
             return False, question
         if self.size >= self.capacity:
-            self.add_to_waiting_queue(member_id)
+            self.add_to_waiting_queue((member_id, year))
             return None, question
         else:
             self.members.append(member_id)
             self.size += 1
             return True, question
         
-    def remove_member(self, member_id):
-        if member_id in self.members:
-            self.members.remove(member_id)
+    def remove_member(self, member_id_year_tuple):
+        if member_id_year_tuple[0] in self.members:
+            self.members.remove(member_id_year_tuple[0])
             if self.queue.size > 0:
-                self.add_member(self.queue.pop())
+                new_member = self.queue.pop()
+                self.add_member(new_member[0], new_member[1])
 
     def __str__(self):
         return "{}: {}-{} years".format(self.name, self.age_from, self.age_to)
