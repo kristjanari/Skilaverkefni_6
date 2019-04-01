@@ -65,7 +65,8 @@ class SportUI:
                     action = '1'
                 else:
                     self.print_sentence()
-                    action = input("1. See groups in that sport\n2. Add a group to that sport\n3. Delete that sport\n").lower()
+                    texti = "1. See groups in {}\n2. Add a group to {}\n3. Delete {}\n".format(sport, sport, sport)
+                    action = input(texti).lower()
                 if action == "1":
                     if member_id:
                         return self.view_groups(sport, member_id, year)
@@ -76,7 +77,10 @@ class SportUI:
                 elif action == "3":
                     self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
                     self.sport_service.remove_sport(sport)
-                    del self.member_service.sport_map[sport]
+                    try:
+                        del self.member_service.sport_map[sport]
+                    except:
+                        pass
                     print("Sport deleted")
                     sleep(1)
                     action = "b"

@@ -14,6 +14,7 @@ class RegistrationUI:
         self.__memberUI = MemberUI(self.__member_service, self.__sport_service)
 
     def main_menu(self):
+        #self.__member_service.fill_member()
         action = ''
         while action != "q":
             system("clear")
@@ -24,7 +25,7 @@ class RegistrationUI:
                 action = self.__sportUI.sport_menu()
             elif action == "2":
                 action = self.__memberUI.member_menu()
-            elif action == "3":
+            elif action == "3" or action == "s" or action == "q":
                 self.__memberUI.save()
                 self.__sportUI.save()
                 print("Files Saved")

@@ -34,6 +34,16 @@ class MemberUI:
             print("\tGroups:")
             for group in group_list[index]:
                 print("\t{}".format(group))
+
+    def print_member_in_sports(self, member_list, sport_list):
+        repeat = ""
+        for index, sport_name in enumerate(sport_list):
+            if repeat != sport_name:
+                print("{}".format( sport_name))
+                print("\tMembers:")
+                repeat = sport_name
+            print("\tID: {}\n{}".format(member_list[index][0], member_list[index][1]))
+
     
     def print_members(self, members, text):
         system("clear")
@@ -42,7 +52,6 @@ class MemberUI:
             print("="*30)
             print("\tID: {}\n{}".format(member[0], member[1]))
         print("="*30)
-
 
     def print_sentence(self):
         system("clear")
@@ -143,7 +152,8 @@ class MemberUI:
                     action = input("Try again?")
             else:
                 print("No members in system")
-                actions = "b"
+                sleep(1)
+                action = "b"
         return self.action_eaquals_quit(action)
 
     def view_all_members(self):
@@ -161,8 +171,9 @@ class MemberUI:
                 self.print_members(member_list, "")
                 return self.allow_actions_with_member(member_list)
             elif action == "3":
-                member_list = self.member_service.get_member_orderd_by_sport()
-                self.print_members(member_list, "")
+                member_list, sport_list = self.member_service.get_member_orderd_by_sport()
+                self.print_member_in_sports(member_list, sport_list)
+                return self.allow_actions_with_member(member_list)
         return self.action_eaquals_quit(action)
 
     def register_new_member(self):
