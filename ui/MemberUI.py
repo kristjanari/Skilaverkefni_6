@@ -1,6 +1,7 @@
 from os import system, name
 from time import sleep
 from ui.SportUI import SportUI
+import datetime
 
 
 
@@ -181,8 +182,19 @@ class MemberUI:
         name = input("Name: ")
         phone = input("Phone: ")
         email = input("Email: ")
-        year = input("Year of birth: ")
+        while True:
+            try:
+                year = input("Year: ")
+                self.check_if_year_is_acceptable(year)
+            except:
+                print("please input valid Year")
         self.member_service.add_member(name, phone, email, year)
         print("Member registerd")
         sleep(2)
         return 'OK'
+
+    def check_if_year_is_acceptable(self, year):
+        date = datetime.datetime.now()
+        year = int(year)
+        if year > int(date.year):
+            raise IndexError()
