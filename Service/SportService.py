@@ -49,7 +49,7 @@ class SportService:
         leagal, question, waiting_list = self.sport_map[sport].add_member(member_id, groups_dict[group], year)
         if leagal != False:
             member.add_group(sport, group, waiting_list)
-        return leagal, question
+        return leagal, question, waiting_list
 
     def add_group(self, name, age_from, age_to, sport, capacity):
         return self.sport_map[sport].add_group(name, age_from, age_to, capacity)

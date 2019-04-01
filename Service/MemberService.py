@@ -32,11 +32,11 @@ class MemberService:
             else:
                 del self.name_map[member.name]
             if len(self.phone_map[member.phone]) > 1:
-                self.name_map[member.phone].remove(id)
+                self.phone_map[member.phone].remove(id)
             else:
                 del self.phone_map[member.phone]
             if len(self.email_map[member.email]) > 1:
-                self.name_map[member.email].remove(id)
+                self.email_map[member.email].remove(id)
             else:
                 del self.email_map[member.email]
             if len(self.year_map[member.birth_year]) > 1:
@@ -45,10 +45,11 @@ class MemberService:
                 del self.year_map[member.birth_year]
             del self.members_map[id]
             for sport in member.sports:
-                if len(self.sport_map[sport]) > 1:
-                    self.sport_map[sport].remove(id)
-                else:
-                    del self.sport_map[sport]
+                if id in self.sport_map[sport]:
+                    if len(self.sport_map[sport]) > 1:
+                        self.sport_map[sport].remove(id)
+                    else:
+                        del self.sport_map[sport]
 
     def find_member(self, looking_for, type):
         if type == "name":
@@ -72,7 +73,7 @@ class MemberService:
             member = self.members_map[key]
             self.name_map[member.name] = self.name_map.get(member.name,[]) + [key]
             self.phone_map[member.phone] = self.phone_map.get(member.phone,[]) + [key]
-            self.email_map[member.name] = self.email_map.get(member.email,[]) + [key]
+            self.email_map[member.email] = self.email_map.get(member.email,[]) + [key]
             self.year_map[member.birth_year] = self.year_map.get(member.birth_year ,[]) + [key]
             for sport in member.sports:
                 self.sport_map[sport] = self.sport_map.get(sport ,[]) + [key]

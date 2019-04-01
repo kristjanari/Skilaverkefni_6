@@ -146,7 +146,10 @@ class MemberUI:
                                 sleep(1)
                                 action = "n"
                     elif action == "3":
-                        self.sport_service.remove_member_from_sports(selected_id, self.member_service.members_map[selected_id].sports)
+                        sport_list = []
+                        for sport in self.member_service.members_map[selected_id].sports:
+                            sport_list.append(self.sport_service.sport_map[sport])
+                        self.sport_service.remove_member_from_sports(selected_id, sport_list)
                         self.member_service.remove_member(selected_id)
                         print("Member deleted")
                         sleep(2)

@@ -32,18 +32,24 @@ class LinkedList():
         self.head = self.head.next
         self.size -= 1
         return value.data
+    
+    def remove(self, id):
+        if self.head == None:
+            return
+        if self.head.data[0] == id:
+            self.head = self.head.next
+            self.size -= 1
+            return
+        self.remove_helper(self.head, id)
 
-    def get_string(self, node):
-        if node == None:
-            return ""
+    def remove_helper(self, node, id):
         if node.next == None:
-            return str(node)
-        else:
-            return str(node) + " " + self.get_string(node.next)
+            return
+        if node.next.data[0] == id:
+            node.next = node.next.next
+            self.size -= 1
+            return
+        self.remove_helper(node.next, id)
 
     def get_size(self):
         return self.size
-
-    def __str__(self):
-        list_str = self.get_string(self.head)
-        return list_str

@@ -33,6 +33,7 @@ class SportGroup:
             if self.queue.size > 0:
                 new_member = self.queue.pop()
                 self.add_member(new_member[0], new_member[1])
+        self.queue.remove(member_id)
 
     def __str__(self):
         return "{}: {}-{} years".format(self.name, self.age_from, self.age_to)

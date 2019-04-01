@@ -76,11 +76,11 @@ class SportUI:
                 elif action == "2":
                     action = self.register_group(sport)
                 elif action == "3":
-                    member_id_list = self.sport_service.sport_map[sport].get_all_members()
-                    member_list = []
-                    for member_id in member_id_list:
-                        member_list.append(self.member_service.members_map[member_id])
-                    self.member_service.remove_sport_from_members(sport, member_list)
+                    members_in_sport_list = []
+                    for member in self.member_service.members_map.values():
+                        if sport in member.sports:
+                            members_in_sport_list.append(member)
+                    self.member_service.remove_sport_from_members(sport, members_in_sport_list)
                     self.sport_service.remove_sport(sport)
                     try:
                         del self.member_service.sport_map[sport]
@@ -119,14 +119,15 @@ class SportUI:
                         return "b"
                     else:
                         continue
-                leagal, right_age = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id],sport, group, year)
+                leagal, right_age, waiting_list = self.sport_service.assign_member_to_group(member_id, self.member_service.members_map[member_id],sport, group, year)
                 if not right_age:
                     print("Member is not in appropriate age range")
                     sleep(1)
                 else:
                     action = self.check_if_leagl(leagal, "Member")
                     if action == "ok":
-                        self.member_service.sport_map[sport] = self.member_service.sport_map.get(sport ,[]) + [member_id]
+                        if not waiting_list:
+                            self.member_service.sport_map[sport] = self.member_service.sport_map.get(sport ,[]) + [member_id]
                         return 'b'
                 self.print_sentence()
                 action = input("Do you want to try again?")
