@@ -124,10 +124,11 @@ class MemberService:
     def remove_sport_from_member(self, member_id, sport):
         member = self.members_map[member_id]
         del member.sports[sport]
-        if len(self.sport_map[sport]) > 1:
-                self.sport_map[sport].remove(member_id)
-        else:
-                del self.sport_map[member_id]
+        if member_id in self.sport_map[sport]:
+            if len(self.sport_map[sport]) > 1:
+                    self.sport_map[sport].remove(member_id)
+            else:
+                    del self.sport_map[member_id]
         
     def fill_member(self):
         date = datetime.datetime.now()
