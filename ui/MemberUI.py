@@ -114,7 +114,7 @@ class MemberUI:
                 inside, selected_id, year = self.check_if_id_is_valid(selected_id, member_list)
                 if inside:
                     self.print_sentence()
-                    action = input("Do you want to:\n1. Sign a member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
+                    action = input("Do you want to:\n1. Assign member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
                     if action == "1":
                         action = self.sportUi.view_all_sports(selected_id, year)
                     elif action == "2":

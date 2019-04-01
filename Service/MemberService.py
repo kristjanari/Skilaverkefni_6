@@ -108,7 +108,7 @@ class MemberService:
 
     def remove_sport_from_members(self, sport, members):
         for member in members:
-            del member.sports[sport]
+            member.remove_sport(sport)
 
     def get_all_sports_for_member(self, member_id):
         member = self.members_map[member_id]

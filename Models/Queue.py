@@ -31,7 +31,7 @@ class LinkedList():
         value = self.head
         self.head = self.head.next
         self.size -= 1
-        return value
+        return value.data
 
     def get_string(self, node):
         if node == None:
