@@ -105,7 +105,7 @@ class SportUI:
             self.print_group(group_member_list, texti)
             if member_id:
                 date = datetime.datetime.now()
-                print("\nMembers ID: {}\nAge: ".format(member_id, int(date.year) - int(year)))
+                print("\nMembers ID: {}\nAge: {}".format(member_id, int(date.year) - int(year)))
                 group_index = input("Select a group: ")
                 try:
                     group = group_name_list[int(group_index) - 1]

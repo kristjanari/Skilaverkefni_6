@@ -90,7 +90,7 @@ class MemberUI:
                 text = "Members born {}:".format(year)
             if member_list:
                 self.print_members(member_list, text)
-                return self.allow_actions_with_member(member_list)
+                action = self.allow_actions_with_member(member_list)
             action = input("Member not found, do you want to search again? (y/n)").lower()
         return self.action_eaquals_quit(action)
 
@@ -167,15 +167,13 @@ class MemberUI:
             if action == "1":
                 member_list = self.member_service.get_member_orderd_by_name()
                 self.print_members(member_list, "")
-                return self.allow_actions_with_member(member_list)
             elif action == "2":
                 member_list = self.member_service.get_member_orderd_by_year()
                 self.print_members(member_list, "")
-                return self.allow_actions_with_member(member_list)
             elif action == "3":
                 member_list, sport_list = self.member_service.get_member_orderd_by_sport()
                 self.print_member_in_sports(member_list, sport_list)
-                return self.allow_actions_with_member(member_list)
+            action = self.allow_actions_with_member(member_list)
         return self.action_eaquals_quit(action)
 
     def register_new_member(self):

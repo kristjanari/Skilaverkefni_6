@@ -25,7 +25,7 @@ class Sport:
 
     def get_all_members(self):
         members = set()
-        for group in self.groups:
+        for group in self.groups.values():
             for member in group.members:
                 members.add(member)
         return members
