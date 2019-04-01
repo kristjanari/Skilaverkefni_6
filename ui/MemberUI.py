@@ -64,7 +64,6 @@ class MemberUI:
             return action
         return ""
 
-
     def look_up_a_member(self):
         action = ""
         while action != "b" and action != "q" and action != "n":
@@ -167,13 +166,15 @@ class MemberUI:
             if action == "1":
                 member_list = self.member_service.get_member_orderd_by_name()
                 self.print_members(member_list, "")
+                action = self.allow_actions_with_member(member_list)
             elif action == "2":
                 member_list = self.member_service.get_member_orderd_by_year()
                 self.print_members(member_list, "")
+                action = self.allow_actions_with_member(member_list)
             elif action == "3":
                 member_list, sport_list = self.member_service.get_member_orderd_by_sport()
                 self.print_member_in_sports(member_list, sport_list)
-            action = self.allow_actions_with_member(member_list)
+                action = self.allow_actions_with_member(member_list)
         return self.action_eaquals_quit(action)
 
     def register_new_member(self):

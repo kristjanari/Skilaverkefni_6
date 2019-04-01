@@ -76,7 +76,11 @@ class SportUI:
                 elif action == "2":
                     action = self.register_group(sport)
                 elif action == "3":
-                    self.member_service.remove_sport_from_members(sport, self.sport_service.sport_map[sport].get_all_members())
+                    member_id_list = self.sport_service.sport_map[sport].get_all_members()
+                    member_list = []
+                    for member_id in member_id_list:
+                        member_list.append(self.member_service.members_map[member_id])
+                    self.member_service.remove_sport_from_members(sport, member_list)
                     self.sport_service.remove_sport(sport)
                     try:
                         del self.member_service.sport_map[sport]
