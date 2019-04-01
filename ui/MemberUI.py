@@ -33,7 +33,11 @@ class MemberUI:
             print("{}.{}".format(index + 1, sport_name))
             print("\tGroups:")
             for group in group_list[index]:
-                print("\t{}".format(group))
+                print("\t{}".format(group[0]), end = " ")
+                if group[1]:
+                    print(" -- Member is on waiting list")
+                else:
+                    print()
 
     def print_member_in_sports(self, member_list, sport_list):
         repeat = ""

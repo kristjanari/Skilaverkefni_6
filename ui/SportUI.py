@@ -109,7 +109,7 @@ class SportUI:
             self.print_group(group_member_list, texti)
             if member_id:
                 date = datetime.datetime.now()
-                print("\nMembers ID: {}\nAge: ".format(member_id, int(date.year) - int(year)))
+                print("\nMembers ID: {}\nAge: {}".format(member_id, int(date.year) - int(year)))
                 group_index = input("Select a group: ")
                 try:
                     group = group_name_list[int(group_index) - 1]
@@ -131,7 +131,7 @@ class SportUI:
                 self.print_sentence()
                 action = input("Do you want to try again?")
             else:
-                ok = input("Press enter to continu")
+                ok = input("Press enter to continue")
                 return 'b'
         return self.action_eaquals_quit(action)
 
@@ -164,5 +164,5 @@ class SportUI:
             return ""
         elif leagal == None:
             print("Group is full.{} has been added to waiting list".format(texti))
-            sleep(1)
+            sleep(2)
             return "ok"
