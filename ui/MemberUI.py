@@ -101,22 +101,23 @@ class MemberUI:
             return inside, selected_id, False
         for member in member_list:
             if selected_id == member[0]:
-                year = member[1].birth_year
+                member = member[1]
                 inside = True
                 break
-        return inside, selected_id, year
+        return inside, selected_id, member
 
     def allow_actions_with_member(self, member_list):
         action = ''
         while action != "b" and action != "q" and action != "n":
             if member_list != []:
                 selected_id = input("Select a member's ID: ")
-                inside, selected_id, year = self.check_if_id_is_valid(selected_id, member_list)
+                inside, selected_id, member = self.check_if_id_is_valid(selected_id, member_list)
                 if inside:
                     self.print_sentence()
-                    action = input("Do you want to:\n1. Assign member to a sport\n2. View all sports for that member\n3. Delete member\n").lower()
+                    texti = "Do you want to:\n1. Sign {} to a sport\n2. View all sports for {}\n3. Delete {} from the system\n".format(member.name, member.name, member.name)
+                    action = input(texti).lower()
                     if action == "1":
-                        action = self.sportUi.view_all_sports(selected_id, year)
+                        return self.sportUi.view_all_sports(selected_id, member.birth_year)
                     elif action == "2":
                         while action != "b" and action != "q" and action != 'n':
                             sport_list, group_list = self.member_service.get_all_sports_for_member(selected_id)
