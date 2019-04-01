@@ -38,8 +38,8 @@ class SportService:
         sport_instance = self.sport_map[sport]
         groups_dict = sport_instance.groups
         for group, value in groups_dict.items():
-            group_member_list.append(value.members)
-            group_name_list.append(value)
+            group_member_list.append(value)
+            group_name_list.append(group)
         return group_member_list, group_name_list
 
 
